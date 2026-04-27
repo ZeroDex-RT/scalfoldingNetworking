@@ -12,7 +12,7 @@ fn main() {
         println!("[CLOSED] : {}:{}",target,port); 
     }
    
-    let open_ports = network::scanner::scan_range(target,1,100);
+    let open_ports = network::scanner::scan_range(target,1,1000);
 
     for port in open_ports {
         println!("[OPEN] : {}", port);

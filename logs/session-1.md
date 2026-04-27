@@ -21,6 +21,15 @@ which scans for open ports on a random website using net::{TcpStream} i think.
 I will today establish what I have to do in the project all together. better description.
 
 
+### Project Description
+
+- Scanner for Open Ports across a newtork.
+- Banner Grabbing - which services are running on the open ports.
+- CLI for using the tool.
+- Better Output as in JSON or some other kind of file.
+- Server in which the tool could be used, deploy it for learning how its deployed.
+
+
 
 ### Learned about
 
@@ -28,6 +37,10 @@ I will today establish what I have to do in the project all together. better des
   - Usage of mod.rs inside of folders.
   - How to define files inside of mod.rs (pub mod scanner).
   - importing a module you have created - mod network (folder name).
+-- learned basics about multithreading.
+  - how its used to split work among threads and improve efficiency
+  - defined in std::thread library. thread::spawn(move || {work that you want});
+
 
 
 

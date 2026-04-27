@@ -1,5 +1,6 @@
 use std::net::{TcpStream, ToSocketAddrs};
 use std::time::Duration;
+use std::thread;
 
 
 pub fn scan(host : &str, port : u16) -> bool{
@@ -19,10 +20,27 @@ pub fn scan(host : &str, port : u16) -> bool{
 
 pub fn scan_range(host : &str, start : u16, end : u16) -> Vec<u16> {
     
-    let mut open_ports = Vec::new();
+    let mut handles = Vec::new();
 
     for port in start..=end {
-        if scan(host,port) {
+        let host = host.to_string();
+    
+
+        let handle = thread::spawn(move || {
+            if scan(&host,port){
+                Some(port)
+            } else {
+                None
+            }
+        });
+
+        handles.push(handle);
+    }
+
+    let mut open_ports = Vec::new();
+
+    for handle in handles {
+        if let Ok(Some(port)) = handle.join() {
             open_ports.push(port);
         }
     }
