@@ -11,5 +11,10 @@ fn main() {
     } else {
         println!("[CLOSED] : {}:{}",target,port); 
     }
-    
+   
+    let open_ports = network::scanner::scan_range(target,1,100);
+
+    for port in open_ports {
+        println!("[OPEN] : {}", port);
+    }
   }

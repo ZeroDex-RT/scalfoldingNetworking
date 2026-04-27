@@ -18,7 +18,17 @@ if they are vulnerable to attacks or not. we can even add AI to check the logs r
 I have already created a git repository, I have already initialized a project so far with cargo init, I have written some rust code for tcp connections
 which scans for open ports on a random website using net::{TcpStream} i think.
 
-I will today establish what I have to do in the project all together. better description. 
+I will today establish what I have to do in the project all together. better description.
+
+
+
+### Learned about
+
+-- how project structure is made in rust. 
+  - Usage of mod.rs inside of folders.
+  - How to define files inside of mod.rs (pub mod scanner).
+  - importing a module you have created - mod network (folder name).
+
 
 
 
