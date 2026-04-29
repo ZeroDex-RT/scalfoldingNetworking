@@ -1,20 +1,23 @@
 mod network;
+use std::env;
 
 
 fn main() {
-    let target = "nmap.scanme.org";
-    let port = 80;
 
-    let port_open : bool = network::scanner::scan(target,port);
-    if port_open {
-        println!("[OPEN] : {}:{}",target,port);
-    } else {
-        println!("[CLOSED] : {}:{}",target,port); 
-    }
-   
-    let open_ports = network::scanner::scan_range(target,1,1000);
+    let args : Vec<String> = env::args().collect();
+    println!("{:?}",args);
 
-    for port in open_ports {
-        println!("[OPEN] : {}", port);
+    if args.len() < 4 {
+        eprintln!("Usage : scan host <starting_port> <ending_port>");
     }
-  }
+
+    let host = &args[1];
+
+    let start_port : u16 = args[2].parse().expect("Invalid Value");
+    let end_port : u16 = args[2].parse().expect("Invalid Value");
+
+
+    let open_ports = network::scanner::scan_range(host, start_port, end_port);
+
+    println!("Open ports: {:?}", open_ports);
+}
