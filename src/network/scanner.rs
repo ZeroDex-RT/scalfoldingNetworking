@@ -1,35 +1,21 @@
-use std::net::{TcpStream,ToSocketAddrs};
+use std::net::{TcpStream,SocketAddr};
 use std::time::Duration;
 use std::thread;
 
-pub fn scan(host : &str, port : u16) -> bool {
-
-    let addr = format!("{}:{}", host,port);
-
-    let socket_addr = match addr.to_socket_addrs() {
-        Ok(mut addrs) => match addrs.next(){
-            Some(addr) => addr,
-            None => return false,
-        }
-        Err(_) => return false,
-    };
-    
-
+pub fn scan(addr : SocketAddr) -> bool {    
     let timeout = Duration::from_millis(500);
-
-    TcpStream::connect_timeout(&socket_addr,timeout).is_ok()
-
+    TcpStream::connect_timeout(&addr,timeout).is_ok()
 }
 
-pub fn scan_range(host : &str, start : u16, end : u16) -> Vec<u16> {
+pub fn scan_range(base_ip: std::net::IpAddr, start : u16, end : u16) -> Vec<u16> {
 
     let mut handles = Vec::new();
 
     for port in start..=end {
-        let host = host.to_string();
+        let addr = SocketAddr::new(base_ip,port);
 
         let handle = thread::spawn(move || {
-            if scan(&host,port){
+            if scan(addr){
                 Some(port)
             } else {
                 None
